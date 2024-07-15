@@ -4,7 +4,10 @@ from .forms import AppartementForm, MaisonForm
 from . import prediction
 from .models import PredictionAppart, PredictionMaison
 import json
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+avg_file_path = os.path.join(BASE_DIR, 'average_prices_by_departement.json')
 
 def creer_appartement(request):
     if request.method == 'POST':
@@ -120,7 +123,7 @@ def get_estimates(request):
         return JsonResponse({'error': 'Missing departement parameter'}, status=400)
     
     try:
-        with open('average_prices_by_departement.json', 'r', encoding='utf-8') as json_file:
+        with open(avg_file_path, 'r', encoding='utf-8') as json_file:
             average_prices = json.load(json_file)
 
         data = average_prices.get(departement, {})
@@ -145,7 +148,7 @@ def get_estimates(request):
 def home(request):
     predictions_appart = PredictionAppart.objects.all().order_by('-date_predicted')[:10]
     predictions_maison = PredictionMaison.objects.all().order_by('-date_predicted')[:10]
-    with open('average_prices_by_departement.json', 'r', encoding='utf-8') as json_file:
+    with open(avg_file_path, 'r', encoding='utf-8') as json_file:
         average_prices = json.load(json_file)
     return render(request, 'home.html', {
         'predictions_appart': predictions_appart,
