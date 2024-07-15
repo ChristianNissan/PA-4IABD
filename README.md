@@ -1,3 +1,7 @@
+Commande pour lancer l'application
+
+python .\finalWebsite\manage.py runserver
+
 Commande pour supprier l'historique des estimations sur la Homepage :
 
 '''
