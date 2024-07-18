@@ -1,2 +1,1 @@
-web: ./clone_repo.sh
-
+web: ./clone_repo.sh && gunicorn finalWebsite.wsgi:application
