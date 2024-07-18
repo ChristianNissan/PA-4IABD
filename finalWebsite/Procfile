@@ -1,2 +1,2 @@
-web: web: ./clone_repo.sh
+web: ./clone_repo.sh
 
